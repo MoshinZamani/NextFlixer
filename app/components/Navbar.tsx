@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa6";
+import Link from "next/link";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -17,9 +18,12 @@ const Navbar = () => {
         <div className="flex">
           <div className="px-4">Home</div>
           {session ? (
-            <div onClick={() => signOut()} className="px-4">
-              Sign Out
-            </div>
+            <>
+              <Link href="/profile">Create Profile</Link>
+              <div onClick={() => signOut()} className="px-4">
+                Sign Out
+              </div>
+            </>
           ) : (
             <div onClick={() => signIn()} className="px-4">
               Sign In
@@ -67,13 +71,18 @@ const Navbar = () => {
       <div
         className={`${
           isMenuVisible ? "absolute" : "hidden"
-        } top-8 right-8 text-white md:hidden bg-gray-500 z-40 w-1/5 rounded`}
+        } top-8 right-8 text-white md:hidden bg-gray-500 z-40 w-1/4 rounded`}
       >
         <div className="px-4 py-2">Home</div>
         {session ? (
-          <div onClick={() => signOut()} className="px-4">
-            Sign Out
-          </div>
+          <>
+            <Link href="/profile" className="px-4 py-2">
+              Create Profile
+            </Link>
+            <div onClick={() => signOut()} className="px-4 py-2">
+              Sign Out
+            </div>
+          </>
         ) : (
           <div onClick={() => signIn()} className="px-4">
             Sign In
