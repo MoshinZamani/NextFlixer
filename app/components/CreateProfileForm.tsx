@@ -1,26 +1,21 @@
 "use client";
 import { useState } from "react";
 
-interface Props {
-  userId: number;
-}
-
-const CreateProfileForm: React.FC<Props> = ({ userId }) => {
+const CreateProfileForm: React.FC = () => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const profile = { userId, name, avatar };
-    const res = await fetch("http://localhost:3000/api/profiles/create", {
+    const profile = { name, avatar };
+    console.log(`name:${name}`);
+    const res = await fetch("http://localhost:3000/api/profiles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(profile),
     });
-    const data = await res.json();
-    console.log(data);
   };
 
   return (
