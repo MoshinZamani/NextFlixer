@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { movies } from "../data/movies";
+import { movies } from "../../data/movies";
 
 const MovieList = () => {
   return (

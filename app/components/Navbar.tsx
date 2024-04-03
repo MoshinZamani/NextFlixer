@@ -20,7 +20,7 @@ const Navbar = () => {
           {session ? (
             <>
               <Link href="/profile">Create Profile</Link>
-              <div onClick={() => signOut()} className="px-4">
+              <div onClick={() => signOut()} className="px-4 cursor-pointer">
                 Sign Out
               </div>
             </>

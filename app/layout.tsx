@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import { getServerSession } from "next-auth";
 import SessionProvider from "./components/SessionProvider";
 const inter = Inter({ subsets: ["latin"] });
+import createUser from "@/lib/createUser";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,6 +18,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
+  if (session) createUser(session);
   return (
     <html lang="en">
       <body className={inter.className}>

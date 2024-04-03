@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { movies } from "@/app/data/movies";
+import { movies } from "@/data/movies";
 
 type Props = {
   params: { movieId: string };

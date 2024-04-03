@@ -1,4 +1,3 @@
-// pages/index.js
 import FeaturedMovie from "@/app/components/FeaturedMovie";
 import MovieList from "@/app/components/MovieList";
 
