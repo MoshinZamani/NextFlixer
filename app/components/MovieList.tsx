@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { movies } from "../../data/movies";
+import getMovies from "@/lib/getMovies";
 
-const MovieList = () => {
+const MovieList = async () => {
+  const movies: Movie[] = await getMovies();
   return (
     <div className="grid grid-cols-5 gap-4">
       {movies.map((movie) => (
@@ -11,7 +12,7 @@ const MovieList = () => {
           className="bg-gray-800 p-2"
         >
           <img
-            src={movie.thumbnail}
+            src={`/assets/movies/${movie.id}.jpg`}
             alt={movie.title}
             className="w-full h-auto"
           />

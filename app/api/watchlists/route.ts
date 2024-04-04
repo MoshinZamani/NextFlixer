@@ -1,4 +1,3 @@
-import getUser from "@/lib/getUser";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 
@@ -22,7 +21,12 @@ export async function POST(req: Request) {
   }
 
   try {
-    const user = await getUser(session.user.email);
+    // Retrieve the user from the database
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    });
 
     if (!user) {
       return Response.json({ message: "User not found" });

@@ -19,13 +19,13 @@ const Navbar = () => {
           <div className="px-4">Home</div>
           {session ? (
             <>
-              <Link href="/profile">Create Profile</Link>
+              <Link href="/profile">Profiles</Link>
               <div onClick={() => signOut()} className="px-4 cursor-pointer">
                 Sign Out
               </div>
             </>
           ) : (
-            <div onClick={() => signIn()} className="px-4">
+            <div onClick={() => signIn()} className="px-4 cursor-pointer">
               Sign In
             </div>
           )}
@@ -73,18 +73,18 @@ const Navbar = () => {
           isMenuVisible ? "absolute" : "hidden"
         } top-8 right-8 text-white md:hidden bg-gray-500 z-40 w-1/4 rounded`}
       >
-        <div className="px-4 py-2">Home</div>
+        <div className="px-4 py-2 cursor-pointer">Home</div>
         {session ? (
           <>
             <Link href="/profile" className="px-4 py-2">
               Create Profile
             </Link>
-            <div onClick={() => signOut()} className="px-4 py-2">
+            <div onClick={() => signOut()} className="px-4 py-2 cursor-pointer">
               Sign Out
             </div>
           </>
         ) : (
-          <div onClick={() => signIn()} className="px-4">
+          <div onClick={() => signIn()} className="px-4 cursor-pointer">
             Sign In
           </div>
         )}
