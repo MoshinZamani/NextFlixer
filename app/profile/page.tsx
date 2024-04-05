@@ -1,29 +1,27 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import prisma from "@/lib/prisma";
 
 import CreateProfileForm from "../components/CreateProfileForm";
 // Assuming you have a component for displaying each profile
 // import ProfileList from "../components/ProfileList"; // Adjust this import according to your file structure
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import getUser from "@/lib/getUser";
 import ProfileList from "../components/ProfileList";
+import getProfiles from "@/lib/getProfiles";
 
 const Profile: React.FC = () => {
-  const session = getSession();
+  const { data: session } = useSession();
   if (!session) redirect("/api/auth/signin/google");
   const [profiles, setProfiles] = useState<Profile[]>([]); // Use the correct type instead of any if available
 
   // Fetch profiles
-  const getProfiles = async () => {
+  const fetchProfiles = async () => {
     try {
-      const user = await getUser(session?.user?.email!); // Adjust this URL to your API endpoint
-      const profilesArray = await prisma.profile.findMany({
-        where: {
-          userId: user?.id,
-        },
-      });
+      const userData = await fetch(`/api/user?email=${session.user?.email}`);
+      const user = await userData.json();
+      const profilesArrayData = await fetch(`/api/profiles?userId=${user!.id}`);
+      const profilesArray = await profilesArrayData.json();
       setProfiles(profilesArray);
     } catch (err) {
       console.log("No profiles found");
@@ -33,7 +31,7 @@ const Profile: React.FC = () => {
 
   // Call fetchProfiles when the component mounts
   useEffect(() => {
-    getProfiles();
+    fetchProfiles();
   }, []);
 
   // Handle profile creation - Adjust this function based on how your CreateProfileForm is implemented

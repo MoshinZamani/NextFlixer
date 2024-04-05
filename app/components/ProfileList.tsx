@@ -4,11 +4,6 @@
 import React from "react";
 
 // Adjust this type to match the structure of your profile objects
-type Profile = {
-  id: number;
-  name: string;
-  avatar?: string;
-};
 
 const ProfileList: React.FC<{
   profiles: Profile[];
@@ -16,6 +11,7 @@ const ProfileList: React.FC<{
 }> = ({ profiles, onDelete }) => {
   return (
     <div>
+      <h1>list of profiles</h1>
       {profiles.map((profile) => (
         <div key={profile.id}>
           <h3>{profile.name}</h3>

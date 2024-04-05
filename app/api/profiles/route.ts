@@ -1,3 +1,4 @@
+import getProfiles from "@/lib/getProfiles";
 import getUser from "@/lib/getUser";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
@@ -42,4 +43,11 @@ export async function POST(req: Request) {
     console.error("Failed to create profile", error);
     return Response.json({ message: "Failed to create profile" });
   }
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const userId = searchParams.get("userId");
+  const profiles = await getProfiles(Number(userId));
+  return Response.json(profiles);
 }
