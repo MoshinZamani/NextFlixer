@@ -7,7 +7,6 @@ import CreateProfileForm from "../components/CreateProfileForm";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import ProfileList from "../components/ProfileList";
-import getProfiles from "@/lib/getProfiles";
 
 type NewProfileData = {
   name: string;

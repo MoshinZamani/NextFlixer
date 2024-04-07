@@ -1,10 +1,18 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import getWatchLists from "@/lib/getWatchlists";
 
 type CreateRequest = {
   name: string;
   avatar?: string;
 };
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const profileId = searchParams.get("profileId");
+  const watchListsArray = await getWatchLists(Number(profileId));
+  return Response.json(watchListsArray);
+}
 
 export async function POST(req: Request) {
   // Check if the user is authenticated
@@ -13,7 +21,7 @@ export async function POST(req: Request) {
     return Response.json({ message: "Unauthorized" });
   }
 
-  const { name, avatar } = await req.json();
+  const { name, profileId } = await req.json();
 
   // Check if required fields are provided
   if (!name) {
@@ -21,23 +29,11 @@ export async function POST(req: Request) {
   }
 
   try {
-    // Retrieve the user from the database
-    const user = await prisma.user.findUnique({
-      where: {
-        email: session.user.email,
-      },
-    });
-
-    if (!user) {
-      return Response.json({ message: "User not found" });
-    }
-
     // Create a new profile for the user
-    const profile = await prisma.profile.create({
+    const profile = await prisma.watchlist.create({
       data: {
         name,
-        avatar,
-        userId: user.id,
+        profileId: Number(profileId),
       },
     });
 

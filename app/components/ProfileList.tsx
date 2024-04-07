@@ -17,7 +17,6 @@ const ProfileList: React.FC<{
         {profiles.map((profile) => (
           <div key={profile.id} className="flex justify-between">
             <h3>{profile.name}</h3>
-            <h3>{profile.id}</h3>
             {profile.avatar && (
               <img
                 src={profile.avatar}
