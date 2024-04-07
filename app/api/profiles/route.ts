@@ -1,3 +1,4 @@
+import deleteProfile from "@/lib/deleteProfile";
 import getProfiles from "@/lib/getProfiles";
 import getUser from "@/lib/getUser";
 import prisma from "@/lib/prisma";
@@ -16,6 +17,7 @@ export async function POST(req: Request) {
   }
 
   const { name, avatar } = await req.json();
+  console.log({ name, avatar });
 
   // Check if required fields are provided
   if (!name) {
@@ -50,4 +52,11 @@ export async function GET(req: Request) {
   const userId = searchParams.get("userId");
   const profiles = await getProfiles(Number(userId));
   return Response.json(profiles);
+}
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const profileId = searchParams.get("profileId");
+  const deletedProfile = await deleteProfile(Number(profileId));
+
+  return Response.json(deletedProfile);
 }

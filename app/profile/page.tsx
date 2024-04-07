@@ -6,14 +6,19 @@ import CreateProfileForm from "../components/CreateProfileForm";
 // import ProfileList from "../components/ProfileList"; // Adjust this import according to your file structure
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import getUser from "@/lib/getUser";
 import ProfileList from "../components/ProfileList";
 import getProfiles from "@/lib/getProfiles";
+
+type NewProfileData = {
+  name: string;
+  avatar?: string;
+};
 
 const Profile: React.FC = () => {
   const { data: session } = useSession();
   if (!session) redirect("/api/auth/signin/google");
-  const [profiles, setProfiles] = useState<Profile[]>([]); // Use the correct type instead of any if available
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [userId, setUserId] = useState<number>(0);
 
   // Fetch profiles
   const fetchProfiles = async () => {
@@ -22,10 +27,12 @@ const Profile: React.FC = () => {
       const user = await userData.json();
       const profilesArrayData = await fetch(`/api/profiles?userId=${user!.id}`);
       const profilesArray = await profilesArrayData.json();
+      setUserId(user.id);
       setProfiles(profilesArray);
     } catch (err) {
       console.log("No profiles found");
       setProfiles([]);
+      setUserId(0);
     }
   };
 
@@ -35,33 +42,41 @@ const Profile: React.FC = () => {
   }, []);
 
   // Handle profile creation - Adjust this function based on how your CreateProfileForm is implemented
-  const handleProfileCreate = async (newProfileData) => {
-    const res = await fetch("/api/profiles/create", {
+  const handleProfileCreate = async (newProfileData: NewProfileData) => {
+    const res = await fetch("/api/profiles/", {
       // Adjust this URL to your API endpoint
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProfileData),
     });
     if (res.ok) {
-      getProfiles(); // Refresh the list of profiles
+      const profilesArrayData = await fetch(`/api/profiles?userId=${userId}`);
+      const profilesArray = await profilesArrayData.json();
+      setProfiles(profilesArray);
     }
   };
 
   // Handle profile deletion
-  const handleProfileDelete = async (profileId) => {
-    const res = await fetch(`/api/profiles/delete/${profileId}`, {
+  const handleProfileDelete = async (profileId: number, userId: number) => {
+    const res = await fetch(`/api/profiles?profileId=${profileId}`, {
       // Adjust this URL to your API endpoint
       method: "DELETE",
     });
     if (res.ok) {
-      getProfiles(); // Refresh the list of profiles
+      const profilesArrayData = await fetch(`/api/profiles?userId=${userId}`);
+      const profilesArray = await profilesArrayData.json();
+      setProfiles(profilesArray);
     }
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <CreateProfileForm onCreate={handleProfileCreate} />
-      <ProfileList profiles={profiles} onDelete={handleProfileDelete} />
+      <ProfileList
+        profiles={profiles}
+        onDelete={handleProfileDelete}
+        userId={userId}
+      />
     </div>
   );
 };
