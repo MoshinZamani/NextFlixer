@@ -2,13 +2,17 @@ import React from "react";
 
 type Props = {
   watchlists: Watchlist[];
+  onDelete: (watchlistId: number) => void;
 };
 
-function WatchlistsList({ watchlists }: Props) {
+function WatchlistsList({ watchlists, onDelete }: Props) {
   return (
-    <div>
+    <div className="flex flex-col">
       {watchlists.map((watchlist) => (
-        <li key={watchlist.id}>{watchlist.name}</li>
+        <>
+          <div key={watchlist.id}>{watchlist.name}</div>
+          <button onClick={() => onDelete(watchlist.id)}>Delete</button>
+        </>
       ))}
     </div>
   );

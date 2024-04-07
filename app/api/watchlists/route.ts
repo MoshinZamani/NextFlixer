@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import getWatchLists from "@/lib/getWatchlists";
+import deleteWatchlist from "@/lib/deleteWatchlist";
 
 type CreateRequest = {
   name: string;
@@ -42,4 +43,11 @@ export async function POST(req: Request) {
     console.error("Failed to create profile", error);
     return Response.json({ message: "Failed to create profile" });
   }
+}
+
+export async function DELETE(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const watchlistId = searchParams.get("watchlistId");
+  const deletedWatchlist = await deleteWatchlist(Number(watchlistId));
+  return Response.json(deletedWatchlist);
 }
