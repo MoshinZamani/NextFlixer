@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 // components/ProfileList.tsx
 import React from "react";
 
@@ -16,7 +17,9 @@ const ProfileList: React.FC<{
       <div className="flex flex-col">
         {profiles.map((profile) => (
           <div key={profile.id} className="flex justify-between">
-            <h3>{profile.name}</h3>
+            <h3>
+              <Link href={`/profile/${profile.id}`}>{profile.name}</Link>
+            </h3>
             {profile.avatar && (
               <img
                 src={profile.avatar}

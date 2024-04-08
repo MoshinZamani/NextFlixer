@@ -71,6 +71,7 @@ function DisplayProfile({ params: { profileId } }: Props) {
       <WatchlistsList
         watchlists={watchlists}
         onDelete={handleWatchlistDelete}
+        profileId={profileId}
       />
     </div>
   );
