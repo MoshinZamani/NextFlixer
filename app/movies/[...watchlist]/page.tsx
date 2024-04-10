@@ -20,7 +20,7 @@ const AddMovieForm = ({ params: { watchlist } }: Props) => {
     getMovies();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     // Make a POST request to your API endpoint
     const response = await fetch(`/api/watchlists/${watchlistId}/addMovie`, {
