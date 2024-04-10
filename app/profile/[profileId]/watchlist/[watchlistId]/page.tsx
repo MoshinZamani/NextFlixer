@@ -1,46 +1,33 @@
 "use client";
+import MovieList from "@/app/components/MovieList";
 import SelectMovies from "@/app/components/SelectMovies";
 import React, { useEffect, useState } from "react";
 
 type Props = {
-  params: { watchlist: [number, string] };
+  params: { profileId: number; watchlistId: number };
 };
 
-const AddMovieForm = ({ params: { watchlist } }: Props) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [movies, setMovies] = useState([]);
+const WatchlistMovies = ({ params: { profileId, watchlistId } }: Props) => {
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   const getMovies = async () => {
-    const res = await fetch("/api/movies");
-    const moviesArray = await res.json();
-    setMovies(moviesArray);
-  };
-  useEffect(() => {
-    getMovies();
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Make a POST request to your API endpoint
-    const response = await fetch(`/api/watchlists/${watchlistId}/addMovie`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description }),
-    });
-
-    if (response.ok) {
-      // Handle successful movie addition
-      setTitle("");
-      setDescription("");
-      alert("Movie added successfully!");
-    } else {
-      // Handle errors
-      alert("Failed to add movie.");
+    try {
+      const res = await fetch(`/api/movies?watchlistId=${watchlistId}`);
+      const moviesArray = await res.json();
+      setMovies(moviesArray);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+        setMovies([]);
+      }
     }
   };
 
-  return <SelectMovies movies={movies} watchlist={watchlist} />;
+  useEffect(() => {
+    getMovies();
+  }, [watchlistId]);
+
+  return <WatchlistMovies movies={movies} />;
 };
 
-export default AddMovieForm;
+export default WatchlistMovies;

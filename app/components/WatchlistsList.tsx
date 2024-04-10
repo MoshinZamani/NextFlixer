@@ -13,9 +13,7 @@ function WatchlistsList({ watchlists, onDelete, profileId }: Props) {
       {watchlists.map((watchlist) => (
         <div className="flex justify-between" key={watchlist.id}>
           <div key={watchlist.id}>
-            <Link
-              href={`/profile/${profileId}/watchlist/${watchlist.id}/${watchlist.name}`}
-            >
+            <Link href={`/profile/${profileId}/watchlist/${watchlist.id}`}>
               {watchlist.name}
             </Link>
           </div>

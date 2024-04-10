@@ -8,7 +8,6 @@ type Props = {
 };
 
 type NewWatchListData = {
-  name: string;
   profileId: number;
 };
 

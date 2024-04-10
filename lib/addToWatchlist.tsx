@@ -9,7 +9,6 @@ const addToWatchlist = async (watchlistId: number, movieIds: [number]) => {
       },
     },
   });
-  console.log(`updatedWatchlist::${JSON.stringify(updatedWatchlist)}`);
 
   return updatedWatchlist;
 };

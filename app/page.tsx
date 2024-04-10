@@ -1,5 +1,6 @@
 import FeaturedMovie from "@/app/components/FeaturedMovie";
 import MovieList from "@/app/components/MovieList";
+import getMovies from "@/lib/getMovies";
 
 const Home: React.FC = () => {
   return (
