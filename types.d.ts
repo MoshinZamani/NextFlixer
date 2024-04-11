@@ -2,6 +2,7 @@ type Movie = {
   id: number;
   title: string;
   description: string;
+  videoId: string;
 };
 
 type Profile = {

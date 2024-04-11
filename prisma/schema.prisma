@@ -33,7 +33,7 @@ model Watchlist {
   id        Int       @id @default(autoincrement())
   profileId Int
   name      String
-  movies    Movie[]   // Removed the incorrect @relation attribute
+  movies    Movie[]  
   profile   Profile   @relation(fields: [profileId], references: [id])
 }
 
@@ -41,5 +41,6 @@ model Movie {
   id          Int         @id @default(autoincrement())
   title       String
   description String
-  watchlists  Watchlist[] // Removed the incorrect @relation attribute
+  videoId String
+  watchlists  Watchlist[] 
 }
