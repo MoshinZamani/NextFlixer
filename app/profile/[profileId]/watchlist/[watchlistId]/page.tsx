@@ -1,17 +1,18 @@
 "use client";
-import MovieList from "@/app/components/MovieList";
-import SelectMovies from "@/app/components/SelectMovies";
+
 import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import WatchlistMoviesList from "@/app/components/WatchlistMoviesList";
 
-type Props = {
-  params: { profileId: number; watchlistId: number };
-};
+const WatchlistMovies = () => {
+  const params = useParams<{ profileId: string; watchlistId: string }>();
+  const { watchlistId } = params;
 
-const WatchlistMovies = ({ params: { profileId, watchlistId } }: Props) => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   const getMovies = async () => {
     try {
+      console.log(`/api/movies?watchlistId=${watchlistId}`);
       const res = await fetch(`/api/movies?watchlistId=${watchlistId}`);
       const moviesArray = await res.json();
       setMovies(moviesArray);
@@ -27,7 +28,7 @@ const WatchlistMovies = ({ params: { profileId, watchlistId } }: Props) => {
     getMovies();
   }, [watchlistId]);
 
-  return <WatchlistMovies movies={movies} />;
+  return <WatchlistMoviesList movies={movies} />;
 };
 
 export default WatchlistMovies;

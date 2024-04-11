@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     }
   }
   try {
-    const watchlistId = searchParams.get("watchlidtId");
+    const watchlistId = searchParams.get("watchlistId");
     const movies = await getMovies(Number(watchlistId));
     return Response.json(movies);
   } catch (error) {
