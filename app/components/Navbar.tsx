@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
   return (
-    <nav className="flex justify-center items-center p-4 bg-black text-white relative">
+    <nav className="flex justify-center items-center p-4 bg-black text-white relative mb-8">
       <div className="text-2xl font-bold flex-1">NextFlixer</div>
 
       <div className="hidden md:flex flex-1 justify-end w-full items-center">

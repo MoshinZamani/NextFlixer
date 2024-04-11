@@ -1,14 +1,42 @@
-import Link from "next/link";
+"use client";
 
-const WatchlistMoviesList = ({ movies }: { movies: Movie[] }) => {
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const WatchlistMoviesList = ({
+  movies,
+  watchlistId,
+}: {
+  movies: Movie[];
+  watchlistId: number;
+}) => {
+  const [allMovies, setAllMovies] = useState<Movie[]>(movies);
+
+  useEffect(() => {
+    setAllMovies(movies);
+  }, [movies]);
+
   const deleteMovie = async (movieId: number) => {
-    console.log("Deleting movie with ID:", movieId);
-    // Your deletion logic here
+    try {
+      const deletedMovie = await fetch("/api/movies", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movieId, watchlistId }),
+      });
+      const newMoviesArrayData = await fetch(
+        `/api/movies?watchlistId=${watchlistId}`
+      );
+      const newMoviesArray = await newMoviesArrayData.json();
+      setAllMovies(newMoviesArray);
+    } catch (error) {
+      if (error instanceof Error) console.error(error);
+      setAllMovies(movies);
+    }
   };
 
   return (
     <div className="grid grid-cols-5 gap-4">
-      {movies.map((movie) => (
+      {allMovies.map((movie) => (
         <div key={movie.id} className="bg-gray-800 p-2">
           <Link href={`/movies/${movie.id}`}>
             <div className="cursor-pointer">
@@ -20,12 +48,20 @@ const WatchlistMoviesList = ({ movies }: { movies: Movie[] }) => {
               <div className="text-white">{movie.title}</div>
             </div>
           </Link>
-          <button
-            onClick={() => deleteMovie(movie.id)}
-            className="mt-2 p-1 bg-red-500 text-white rounded hover:bg-red-700"
-          >
-            Delete
-          </button>
+          <div className="flex justify-end">
+            <Link
+              href={`/movies/${movie.id}`}
+              className="mr-2 mt-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-700"
+            >
+              Play Now
+            </Link>
+            <button
+              onClick={() => deleteMovie(movie.id)}
+              className="mt-2 p-1 bg-red-500 text-white rounded hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       ))}
     </div>

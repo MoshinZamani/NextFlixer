@@ -1,3 +1,4 @@
+import deleteMovie from "@/lib/deleteMovie";
 import getMovies from "@/lib/getMovies";
 
 export async function GET(req: Request) {
@@ -19,4 +20,10 @@ export async function GET(req: Request) {
     if (error instanceof Error) console.error(error);
     return Response.json([]);
   }
+}
+
+export async function DELETE(req: Request) {
+  const { watchlistId, movieId } = await req.json();
+  const deletedMovie = await deleteMovie(watchlistId, movieId);
+  return Response.json(true);
 }

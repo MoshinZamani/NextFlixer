@@ -17,7 +17,6 @@ export async function POST(req: Request) {
   }
 
   const { name, avatar } = await req.json();
-  console.log({ name, avatar });
 
   // Check if required fields are provided
   if (!name) {

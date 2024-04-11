@@ -12,7 +12,6 @@ const WatchlistMovies = () => {
 
   const getMovies = async () => {
     try {
-      console.log(`/api/movies?watchlistId=${watchlistId}`);
       const res = await fetch(`/api/movies?watchlistId=${watchlistId}`);
       const moviesArray = await res.json();
       setMovies(moviesArray);
@@ -28,7 +27,9 @@ const WatchlistMovies = () => {
     getMovies();
   }, [watchlistId]);
 
-  return <WatchlistMoviesList movies={movies} />;
+  return (
+    <WatchlistMoviesList movies={movies} watchlistId={Number(watchlistId)} />
+  );
 };
 
 export default WatchlistMovies;
