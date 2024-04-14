@@ -62,7 +62,7 @@ function DisplayProfile({ params: { profileId } }: Props) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <CreateWatchlistForm
         onCreate={handleWatchlistCreate}
         profileId={profileId}

@@ -17,20 +17,26 @@ function CreateWatchlistForm({ onCreate, profileId }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Watchlist Name:</label>
+    <div className="flex bg-gray-800 text-white border-2 border-red w-1/2 justify-center py-3">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name" className="mr-2">
+          Watchlist Name:
+        </label>
         <input
           id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="p-2 rounded text-gray-600"
+          placeholder="Enter Watchlist Name"
         />
-      </div>
 
-      <button type="submit">Create Watchlist</button>
-    </form>
+        <button className="ml-4 bg-green-500 p-2 rounded" type="submit">
+          Create Watchlist
+        </button>
+      </form>
+    </div>
   );
 }
 

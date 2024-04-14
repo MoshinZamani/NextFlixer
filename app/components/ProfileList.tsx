@@ -12,14 +12,17 @@ const ProfileList: React.FC<{
   userId: number;
 }> = ({ profiles, onDelete, userId }) => {
   return (
-    <div className="flex flex-col w-1/2 justify-center border-2 border-black">
-      <h1>list of profiles</h1>
+    <div className="flex flex-col w-1/2 border-4 border-black h-60 mt-4 bg-gray-800 text-white p-4">
+      <h1 className="text-center text-2xl mb-2">list of profiles</h1>
       <div className="flex flex-col">
         {profiles.map((profile) => (
-          <div key={profile.id} className="flex justify-between">
-            <h3>
+          <div
+            key={profile.id}
+            className="flex justify-around bg-white py-2 text-black mb-2 rounded hover:bg-gray-200"
+          >
+            <h1>
               <Link href={`/profile/${profile.id}`}>{profile.name}</Link>
-            </h3>
+            </h1>
             {profile.avatar && (
               <img
                 src={profile.avatar}
@@ -27,7 +30,12 @@ const ProfileList: React.FC<{
                 style={{ width: 100, height: 100 }}
               />
             )}
-            <button onClick={() => onDelete(profile.id, userId)}>Delete</button>
+            <button
+              onClick={() => onDelete(profile.id, userId)}
+              className="rounded p-2 bg-red-600 hover:bg-red-400"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

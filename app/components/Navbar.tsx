@@ -16,7 +16,9 @@ const Navbar = () => {
 
       <div className="hidden md:flex flex-1 justify-end w-full items-center">
         <div className="flex">
-          <div className="px-4">Home</div>
+          <Link href="/" className="px-4">
+            Home
+          </Link>
           {session ? (
             <>
               <Link href="/profile">Profiles</Link>
@@ -71,13 +73,15 @@ const Navbar = () => {
       <div
         className={`${
           isMenuVisible ? "absolute" : "hidden"
-        } top-8 right-8 text-white md:hidden bg-gray-500 z-40 w-1/4 rounded`}
+        } top-8 right-8 text-white md:hidden bg-gray-500 z-40 w-1/4 rounded flex flex-col`}
       >
-        <div className="px-4 py-2 cursor-pointer">Home</div>
+        <Link href="/" className="px-4 py-2 cursor-pointer">
+          Home
+        </Link>
         {session ? (
           <>
             <Link href="/profile" className="px-4 py-2">
-              Create Profile
+              Profile
             </Link>
             <div onClick={() => signOut()} className="px-4 py-2 cursor-pointer">
               Sign Out
