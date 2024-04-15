@@ -32,7 +32,10 @@ function CreateWatchlistForm({ onCreate, profileId }: Props) {
           placeholder="Enter Watchlist Name"
         />
 
-        <button className="ml-4 bg-green-500 p-2 rounded" type="submit">
+        <button
+          className="button font-bold ml-4 bg-green-500 p-2 rounded"
+          type="submit"
+        >
           Create Watchlist
         </button>
       </form>

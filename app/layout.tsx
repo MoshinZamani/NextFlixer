@@ -1,19 +1,15 @@
 import type { Metadata } from "next";
-import { Roboto, Inter } from "next/font/google";
+import { Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { getServerSession } from "next-auth";
 import SessionProvider from "./components/SessionProvider";
 import createUser from "@/lib/createUser";
 
-const roboto = Roboto({
+const lb = Libre_Baskerville({
   weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +26,7 @@ export default async function RootLayout({
   if (session) createUser(session);
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={lb.className}>
         <SessionProvider session={session}>
           <Navbar />
           {children}

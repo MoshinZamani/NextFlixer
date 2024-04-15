@@ -7,8 +7,6 @@ type Props = {
 };
 
 const AddMovieForm = ({ params: { watchlist } }: Props) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [movies, setMovies] = useState([]);
 
   const getMovies = async () => {

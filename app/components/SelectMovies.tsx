@@ -28,51 +28,44 @@ const SelectMovies = ({ watchlist, movies }: Props) => {
     });
 
     if (response.ok) {
-      // Handle success, such as clearing selected movies
       setSelectedMovieIds([]);
       alert("Movies added to watchlist!");
     } else {
-      // Handle error
       alert("Failed to add movies to watchlist.");
     }
   };
 
   return (
     <div className="flex flex-col items-center bg-gray-800 pt-8">
-      <h2 className="mb-4">
+      <h2 className="mb-4 text-white">
         Select all movies to add to watchlist{" "}
-        <span className="text-green-800 font-bold">{watchlist[1]}</span>
+        <span className="text-green-500 font-bold">{watchlist[1]}</span>
       </h2>
-      <div className="flex flex-wrap w-3/4 gap-10 mb-8">
+      <div className="flex flex-wrap justify-center w-3/4 gap-4 mb-8">
         {movies.map((movie) => (
           <div
-            className="flex flex-col justify-center items-center"
+            className={`flex flex-col items-center bg-white p-2 border border-gray-300 rounded ${
+              selectedMovieIds.includes(movie.id)
+                ? "border-4 border-red-500"
+                : "border border-gray-300"
+            }`}
             key={movie.id}
           >
             <img
-              key={movie.id}
               src={`/assets/movies/${movie.id}.jpg`}
               alt={movie.title}
-              style={{
-                width: "150px",
-                height: "200px",
-                objectFit: "cover",
-                border: selectedMovieIds.includes(movie.id)
-                  ? "8px solid red"
-                  : "3px solid gray",
-                cursor: "pointer",
-              }}
+              className="w-24 h-32 object-cover"
               onClick={() => toggleMovieSelection(movie.id)}
             />
-            <p>{movie.title}</p>
+            <p className="text-center w-24 break-words mt-2">{movie.title}</p>
           </div>
         ))}
       </div>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-8"
+        className="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
         onClick={addToWatchlist}
       >
-        Add
+        Add to Watchlist
       </button>
     </div>
   );

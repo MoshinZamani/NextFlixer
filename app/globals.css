@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+.button {
+  font-family: "Roboto";
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}

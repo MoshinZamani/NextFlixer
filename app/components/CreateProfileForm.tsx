@@ -32,7 +32,10 @@ const CreateProfileForm: React.FC<{
           className="p-2 rounded  text-gray-600"
         />
 
-        <button className="ml-4 bg-green-500 p-2 rounded" type="submit">
+        <button
+          className="ml-4 bg-green-500 p-2 rounded button font-bold"
+          type="submit"
+        >
           Create Profile
         </button>
       </form>
