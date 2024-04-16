@@ -11,9 +11,19 @@ const ProfileList: React.FC<{
   onDelete: (profileId: number, userId: number) => void;
   userId: number;
 }> = ({ profiles, onDelete, userId }) => {
+  if (profiles.length === 0) {
+    return (
+      <div className="flex flex-col w-1/2 border-4 border-black h-60 mt-4 bg-gray-800 text-white p-4">
+        <h1 className="text-center text-2xl mb-2 ">
+          There is no profile to show. Create one.
+        </h1>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col w-1/2 border-4 border-black h-60 mt-4 bg-gray-800 text-white p-4">
       <h1 className="text-center text-2xl mb-2 ">list of profiles</h1>
+
       <div className="flex flex-col">
         {profiles.map((profile) => (
           <div

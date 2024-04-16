@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Props including watchlistId for which movies are being added
 type Props = {
@@ -6,8 +9,36 @@ type Props = {
   movies: Movie[];
 };
 
-const SelectMovies = ({ watchlist, movies }: Props) => {
+const SelectMovies = ({ watchlist, movies: initialMovies }: Props) => {
   const [selectedMovieIds, setSelectedMovieIds] = useState<number[]>([]);
+  const [movies, setMovies] = useState(initialMovies);
+
+  const fetchWatchlistMovies = async () => {
+    try {
+      const response = await fetch(`/api/movies?watchlistId=${watchlist[0]}`);
+
+      if (response.ok) {
+        const moviesToRemove: Movie[] = await response.json();
+        const filteredMovies = initialMovies.filter(
+          (movie) =>
+            !moviesToRemove.some(
+              (movieToRemove) => movieToRemove.id === movie.id
+            )
+        );
+        setMovies(filteredMovies);
+      } else {
+        toast.error("Failed to fetch watchlist movies.");
+        setMovies(initialMovies);
+      }
+    } catch (error) {
+      console.error("Failed to fetch watchlist movies:", error);
+      setMovies(initialMovies);
+    }
+  };
+
+  useEffect(() => {
+    fetchWatchlistMovies();
+  }, [initialMovies]);
 
   const toggleMovieSelection = (movieId: number) => {
     setSelectedMovieIds((prevSelected) =>
@@ -28,26 +59,37 @@ const SelectMovies = ({ watchlist, movies }: Props) => {
     });
 
     if (response.ok) {
+      const remainingMovies = movies.filter(
+        (movie) => !selectedMovieIds.includes(movie.id)
+      );
+      setMovies(remainingMovies);
       setSelectedMovieIds([]);
-      alert("Movies added to watchlist!");
+      toast.success("Movies added to watchlist!");
     } else {
-      alert("Failed to add movies to watchlist.");
+      toast.error("Failed to add movies to watchlist.");
     }
   };
 
   return (
     <div className="flex flex-col items-center bg-gray-800 pt-8">
+      <ToastContainer />
       <h2 className="mb-4 text-white">
-        Select all movies to add to watchlist{" "}
-        <span className="text-green-500 font-bold">{watchlist[1]}</span>
+        Select movies to add to watchlist{" "}
+        <Link
+          href={"/"}
+          className="text-green-500 font-bold underline hover:text-red-500"
+        >
+          {watchlist[1].replace(/%20/g, " ")}
+        </Link>
       </h2>
       <div className="flex flex-wrap justify-center w-3/4 gap-4 mb-8">
         {movies.map((movie) => (
           <div
+            onClick={() => toggleMovieSelection(movie.id)}
             className={`flex flex-col items-center bg-white p-2 border border-gray-300 rounded ${
               selectedMovieIds.includes(movie.id)
                 ? "border-4 border-red-500"
-                : "border border-gray-300"
+                : "border-4 border-gray-300"
             }`}
             key={movie.id}
           >
@@ -55,7 +97,6 @@ const SelectMovies = ({ watchlist, movies }: Props) => {
               src={`/assets/movies/${movie.id}.jpg`}
               alt={movie.title}
               className="w-24 h-32 object-cover"
-              onClick={() => toggleMovieSelection(movie.id)}
             />
             <p className="text-center w-24 break-words mt-2">{movie.title}</p>
           </div>
