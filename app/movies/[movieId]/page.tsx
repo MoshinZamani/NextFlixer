@@ -1,7 +1,7 @@
 "use client";
-import getMovie from "@/lib/getMovie";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: { movieId: string };
@@ -9,6 +9,8 @@ type Props = {
 
 const MovieDetails: React.FC<Props> = ({ params: { movieId } }: Props) => {
   const [movie, setMovie] = useState<Movie>();
+
+  const router = useRouter();
 
   const findMovie = async () => {
     try {
@@ -37,8 +39,16 @@ const MovieDetails: React.FC<Props> = ({ params: { movieId } }: Props) => {
   };
   return (
     <>
-      <YouTube opts={opts} videoId={movie?.videoId} onReady={onReady} />
-      <p>{movie?.description}</p>
+      <div
+        onClick={() => router.back()}
+        className="underline hover:text-green-300"
+      >
+        ⬅️Back
+      </div>
+      <div className="flex flex-col items-center">
+        <YouTube opts={opts} videoId={movie?.videoId} onReady={onReady} />
+        <p className="mt-4">{movie?.description}</p>
+      </div>
     </>
   );
 };

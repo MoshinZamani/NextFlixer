@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 const WatchlistMoviesList = ({
   movies,
   watchlistId,
+  profileId,
 }: {
   movies: Movie[];
   watchlistId: number;
+  profileId: number;
 }) => {
   const [allMovies, setAllMovies] = useState<Movie[]>(movies);
 
@@ -33,6 +35,13 @@ const WatchlistMoviesList = ({
       setAllMovies(movies);
     }
   };
+  if (!allMovies.length) {
+    return (
+      <div className="flex justify-center bg-gray-800 text-white py-10">
+        <h2>No movies have been added to this watchlist yet.</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-5 gap-4">

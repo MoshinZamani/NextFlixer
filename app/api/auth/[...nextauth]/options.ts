@@ -20,9 +20,7 @@ export const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
-  pages: {
-    signOut: "/",
-  },
+
   callbacks: {
     async signIn({ profile }: { profile: GoogleProfile }) {
       if (!profile?.email) {

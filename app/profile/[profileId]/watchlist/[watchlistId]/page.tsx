@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import WatchlistMoviesList from "@/app/components/WatchlistMoviesList";
+import BreadCrumbs from "@/app/components/BreadCrumbs";
 
 const WatchlistMovies = () => {
   const params = useParams<{ profileId: string; watchlistId: string }>();
-  const { watchlistId } = params;
+  const { watchlistId, profileId } = params;
 
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -28,7 +29,14 @@ const WatchlistMovies = () => {
   }, [watchlistId]);
 
   return (
-    <WatchlistMoviesList movies={movies} watchlistId={Number(watchlistId)} />
+    <>
+      <BreadCrumbs />
+      <WatchlistMoviesList
+        movies={movies}
+        watchlistId={Number(watchlistId)}
+        profileId={Number(profileId)}
+      />
+    </>
   );
 };
 
