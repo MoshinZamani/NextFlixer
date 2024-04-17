@@ -1,5 +1,7 @@
 import GoggleProvider from "next-auth/providers/google";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/dist/server/api-utils";
+import { request } from "http";
 
 type GoogleProfile = {
   email: string;
@@ -8,6 +10,9 @@ type GoogleProfile = {
 };
 
 export const options = {
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
   session: { strategy: "jwt" },
   providers: [
     GoggleProvider({
@@ -15,6 +20,9 @@ export const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  pages: {
+    signOut: "/",
+  },
   callbacks: {
     async signIn({ profile }: { profile: GoogleProfile }) {
       if (!profile?.email) {

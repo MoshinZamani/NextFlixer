@@ -5,7 +5,7 @@ import CreateProfileForm from "../components/CreateProfileForm";
 // Assuming you have a component for displaying each profile
 // import ProfileList from "../components/ProfileList"; // Adjust this import according to your file structure
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ProfileList from "../components/ProfileList";
 
 type NewProfileData = {
@@ -15,14 +15,17 @@ type NewProfileData = {
 
 const Profile: React.FC = () => {
   const { data: session } = useSession();
-  if (!session) redirect("/api/auth/signin/google");
+  const router = useRouter();
+
+  // if (!session) router.push("/api/auth/signin/google");
   const [profiles, setProfiles] = useState<Profile[]>([]);
+
   const [userId, setUserId] = useState<number>(0);
 
   // Fetch profiles
   const fetchProfiles = async () => {
     try {
-      const userData = await fetch(`/api/user?email=${session.user?.email}`);
+      const userData = await fetch(`/api/user?email=${session?.user?.email}`);
       const user = await userData.json();
       const profilesArrayData = await fetch(`/api/profiles?userId=${user!.id}`);
       const profilesArray = await profilesArrayData.json();
