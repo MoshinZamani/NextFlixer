@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "./components/SessionProvider";
 import createUser from "@/lib/createUser";
 import Footer from "./components/Footer";
-
 const lb = Libre_Baskerville({
   weight: ["400", "700"],
   subsets: ["latin"],

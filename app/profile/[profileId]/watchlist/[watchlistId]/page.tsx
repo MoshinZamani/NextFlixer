@@ -29,14 +29,11 @@ const WatchlistMovies = () => {
   }, [watchlistId]);
 
   return (
-    <>
-      <BreadCrumbs />
-      <WatchlistMoviesList
-        movies={movies}
-        watchlistId={Number(watchlistId)}
-        profileId={Number(profileId)}
-      />
-    </>
+    <WatchlistMoviesList
+      movies={movies}
+      watchlistId={Number(watchlistId)}
+      profileId={Number(profileId)}
+    />
   );
 };
 

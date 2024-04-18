@@ -4,6 +4,7 @@ import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaRegUser } from "react-icons/fa6";
 import Link from "next/link";
+import Breadcrumbs from "./BreadCrumbs";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -11,8 +12,11 @@ const Navbar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
   return (
-    <nav className="flex justify-center items-center p-4 bg-black text-white relative mb-8">
-      <div className="text-2xl font-bold flex-1">NextFlixer</div>
+    <nav className="flex justify-between md:justify-center items-center p-4 bg-black text-white relative mb-8">
+      <div>
+        <div className="text-2xl font-bold">NextFlixer</div>
+        <Breadcrumbs />
+      </div>
 
       <div className="hidden md:flex flex-1 justify-end w-full items-center">
         <div className="flex">
