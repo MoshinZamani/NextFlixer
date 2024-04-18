@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 // components/ProfileList.tsx
-import React from "react";
+import React, { useState } from "react";
+import ConfirmDialog from "./ConfirmDialog";
+import { useToast } from "react-toastify";
 
 // Adjust this type to match the structure of your profile objects
 
@@ -11,6 +13,25 @@ const ProfileList: React.FC<{
   onDelete: (profileId: number, userId: number) => void;
   userId: number;
 }> = ({ profiles, onDelete, userId }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedProfileId, setSelectedProfileId] = useState<number>(0);
+
+  const handleDeleteClick = (profileId: number) => {
+    setSelectedProfileId(profileId);
+    setIsDialogOpen(true);
+    console.log(isDialogOpen);
+  };
+
+  const onOk = () => {
+    if (selectedProfileId != null) {
+      onDelete(selectedProfileId, userId);
+    }
+    setIsDialogOpen(false);
+  };
+  const onClose = () => {
+    setIsDialogOpen(false);
+  };
+
   if (profiles.length === 0) {
     return (
       <div className="flex flex-col w-1/2 border-4 border-black h-60 mt-4 bg-gray-800 text-white p-4">
@@ -46,7 +67,7 @@ const ProfileList: React.FC<{
               />
             )}
             <button
-              onClick={() => onDelete(profile.id, userId)}
+              onClick={() => handleDeleteClick(profile.id)}
               className="button rounded p-2 bg-red-600 hover:bg-red-400"
             >
               Delete
@@ -54,6 +75,12 @@ const ProfileList: React.FC<{
           </div>
         ))}
       </div>
+      {isDialogOpen && (
+        <ConfirmDialog title="Confirm Delete" onClose={onClose} onOk={onOk}>
+          Are you sure you want to delete this profile? This action cannot be
+          undone.
+        </ConfirmDialog>
+      )}
     </div>
   );
 };

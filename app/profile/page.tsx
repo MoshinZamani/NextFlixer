@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
 import CreateProfileForm from "../components/CreateProfileForm";
 // Assuming you have a component for displaying each profile
 // import ProfileList from "../components/ProfileList"; // Adjust this import according to your file structure
@@ -17,9 +16,7 @@ const Profile: React.FC = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  // if (!session) router.push("/api/auth/signin/google");
   const [profiles, setProfiles] = useState<Profile[]>([]);
-
   const [userId, setUserId] = useState<number>(0);
 
   // Fetch profiles
@@ -60,6 +57,10 @@ const Profile: React.FC = () => {
 
   // Handle profile deletion
   const handleProfileDelete = async (profileId: number, userId: number) => {
+    const confirmDelete = window.confirm(
+      "All data will be lost. Are you sure?"
+    );
+    if (!confirmDelete) return undefined;
     const res = await fetch(`/api/profiles?profileId=${profileId}`, {
       // Adjust this URL to your API endpoint
       method: "DELETE",

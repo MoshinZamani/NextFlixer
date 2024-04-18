@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import getWatchLists from "@/lib/getWatchlists";
+import getWatchlists from "@/lib/getWatchlists";
 import deleteWatchlist from "@/lib/deleteWatchlist";
 
 type CreateRequest = {
@@ -11,7 +11,7 @@ type CreateRequest = {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const profileId = searchParams.get("profileId");
-  const watchListsArray = await getWatchLists(Number(profileId));
+  const watchListsArray = await getWatchlists(Number(profileId));
   return Response.json(watchListsArray);
 }
 

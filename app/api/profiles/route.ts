@@ -3,6 +3,8 @@ import getProfiles from "@/lib/getProfiles";
 import getUser from "@/lib/getUser";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import getWatchlists from "@/lib/getWatchlists";
+import deleteWatchlist from "@/lib/deleteWatchlist";
 
 type CreateRequest = {
   name: string;
@@ -55,7 +57,14 @@ export async function GET(req: Request) {
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const profileId = searchParams.get("profileId");
+  const watchlists = await getWatchlists(Number(profileId));
+  watchlists.map((watchlist) => {
+    try {
+      deleteWatchlist(watchlist.id);
+    } catch (error) {
+      if (error instanceof Error) console.error(error);
+    }
+  });
   const deletedProfile = await deleteProfile(Number(profileId));
-
   return Response.json(deletedProfile);
 }
