@@ -17,7 +17,7 @@ const CreateProfileForm: React.FC<{
   };
 
   return (
-    <div className="flex bg-gray-800 text-white border-2 border-red w-1/2 justify-center py-3">
+    <div className="flex flex-col bg-gray-800 text-white border-2 border-red w-1/2 md:flex-row justify-center px-2 py-3">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name" className="mr-2">
           Profile Name:
@@ -29,11 +29,11 @@ const CreateProfileForm: React.FC<{
           onChange={(e) => setName(e.target.value)}
           required
           placeholder="Enter profile name"
-          className="p-2 rounded  text-gray-600"
+          className="sm:mt-2 mb-2 p-2 rounded  text-gray-600"
         />
 
         <button
-          className="ml-4 bg-green-500 p-2 rounded button font-bold"
+          className="md:ml-4 bg-green-500 p-2 rounded button font-bold"
           type="submit"
         >
           Create Profile

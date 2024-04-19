@@ -44,7 +44,7 @@ const WatchlistMoviesList = ({
   }
 
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5 gap-4 items-center">
       {allMovies.map((movie) => (
         <div key={movie.id} className="bg-gray-800 p-2">
           <Link href={`/movies/${movie.id}`}>
