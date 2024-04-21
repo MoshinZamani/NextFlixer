@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import WatchlistMoviesList from "@/app/components/WatchlistMoviesList";
-import BreadCrumbs from "@/app/components/BreadCrumbs";
 
 const WatchlistMovies = () => {
   const params = useParams<{ profileId: string; watchlistId: string }>();

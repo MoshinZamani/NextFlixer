@@ -1,5 +1,3 @@
-import getMovie from "@/lib/getMovie";
-
 const FeaturedMovie = async () => {
   const random = Math.ceil(Math.random() * 4);
   const movies = [

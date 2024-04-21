@@ -3,7 +3,7 @@ import SelectMovies from "@/app/components/SelectMovies";
 import React, { useEffect, useState } from "react";
 
 type Props = {
-  params: { watchlist: [number, string] };
+  params: { watchlist: [number, string, number] };
 };
 
 const AddMovieForm = ({ params: { watchlist } }: Props) => {

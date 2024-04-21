@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Props including watchlistId for which movies are being added
 type Props = {
-  watchlist: [number, string];
+  watchlist: [number, string, number];
   movies: Movie[];
 };
 
@@ -76,7 +76,7 @@ const SelectMovies = ({ watchlist, movies: initialMovies }: Props) => {
       <h2 className="mb-4 text-white">
         Select movies to add to watchlist{" "}
         <Link
-          href={"/"}
+          href={`/profile/${watchlist[2]}/watchlist/${watchlist[0]}`}
           className="text-green-500 font-bold underline hover:text-red-500"
         >
           {watchlist[1].replace(/%20/g, " ")}

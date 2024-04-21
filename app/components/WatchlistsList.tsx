@@ -28,7 +28,7 @@ function WatchlistsList({ watchlists, onDelete, profileId }: Props) {
             </div>
             <div>
               <Link
-                href={`/movies/${watchlist.id}/${watchlist.name}`}
+                href={`/movies/${watchlist.id}/${watchlist.name}/${profileId}`}
                 className="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
                 Add movie

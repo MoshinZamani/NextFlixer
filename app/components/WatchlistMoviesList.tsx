@@ -20,7 +20,7 @@ const WatchlistMoviesList = ({
 
   const deleteMovie = async (movieId: number) => {
     try {
-      const deletedMovie = await fetch("/api/movies", {
+      await fetch("/api/movies", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ movieId, watchlistId }),
@@ -44,32 +44,35 @@ const WatchlistMoviesList = ({
   }
 
   return (
-    <div className="grid grid-cols-5 gap-4 items-center">
+    <div className="flex justify-center flex-wrap">
       {allMovies.map((movie) => (
-        <div key={movie.id} className="bg-gray-800 p-2">
-          <Link href={`/movies/${movie.id}`}>
-            <div className="cursor-pointer">
-              <img
-                src={`/assets/movies/${movie.id}.jpg`}
-                alt={movie.title}
-                className="w-full h-auto"
-              />
+        <div
+          key={movie.id}
+          className="relative bg-gray-800 p-2 w-64 h-96 flex flex-col justify-between mr-2 mb-2"
+        >
+          <div>
+            <img
+              src={`/assets/movies/${movie.id}.jpg`}
+              alt={movie.title}
+              className="w-full h-full object-cover rounded"
+            />
+            <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between p-2">
               <div className="text-white">{movie.title}</div>
+              <div className="flex justify-end">
+                <Link
+                  href={`/movies/${movie.id}`}
+                  className="mr-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-700"
+                >
+                  Play Now
+                </Link>
+                <button
+                  onClick={() => deleteMovie(movie.id)}
+                  className="p-1 bg-red-500 text-white rounded hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          </Link>
-          <div className="flex justify-end">
-            <Link
-              href={`/movies/${movie.id}`}
-              className="mr-2 mt-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-700"
-            >
-              Play Now
-            </Link>
-            <button
-              onClick={() => deleteMovie(movie.id)}
-              className="mt-2 p-1 bg-red-500 text-white rounded hover:bg-red-700"
-            >
-              Delete
-            </button>
           </div>
         </div>
       ))}
