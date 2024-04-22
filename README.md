@@ -20,8 +20,9 @@ The easiest way is to watch the video series as it is self-explanatory, but here
 2. Run **_npm install_** to install the dependencies
 3. Install **_PostgreSQL_**
 4. Run **_npx prisma migrate dev --name init_**
-5. Run **_npm run dev_** and happy coding!
-6. In case to see the Staic or SSG pages, simply run **_npm run build_**
+5. Add a list of movies to Movie table
+6. Run **_npm run dev_** and happy coding!
+7. In case to see the Staic or SSG pages, simply run **_npm run build_**
 
 ## How to tweak this project for your own uses
 
