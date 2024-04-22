@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nextflixer App
 
-## Getting Started
+## A mini-Netflix app written in TypeScript using NextJS, Prisma, PostgreSQL and TailwindCSS
 
-First, run the development server:
+This Nextflixer App serves as a robust example project built using the NextJS framework with TypeScript and styled using TailwindCSS. The project is structured as a comprehensive guide on building an app that aggregates movie data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## These have been done
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Create a **_NextJS_** project with **_TypeScript_** and **_TailwindCSS_**
+- Utilizes **_next-auth_** to authorize user (and for new user, create a user in db)
+- User have access to create profiles and watchlists, then can add movies to watchlists
+- Movies are saved in **_PostgreSQL_** database
+- **_NextJS_** manages db using **_Prisma_** ORM
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to install and run this project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The easiest way is to watch the video series as it is self-explanatory, but here is a short version.
 
-## Learn More
+1. Clone the project
+2. Run **_npm install_** to install the dependencies
+3. Install **_PostgreSQL_**
+4. Run **_npx prisma migrate dev --name init_**
+5. Run **_npm run dev_** and happy coding!
+6. In case to see the Staic or SSG pages, simply run **_npm run build_**
 
-To learn more about Next.js, take a look at the following resources:
+## How to tweak this project for your own uses
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Since this is an example project, I'd encourage you to clone and rename this project to use to your own purposes. it's a good starter boilerplate.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Find a bug?
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you found an issue or would like to submit an improvement to this project, please submit an issue using the issues tab above. If you would like to submit a PR with a fix, reference the issue you created!
